@@ -8,8 +8,6 @@
 </head>
 <body>
     <div class="container">
-    <h2>Rodolfo Imanol Suasnavar del Carpio</h2>
-    <h2>9° A</h2>
         <h1>Calculadora Básica</h1>
         <form action="calculate.php" method="post">
             <div class="form-group">
@@ -27,6 +25,7 @@
                 <select id="operation" name="operation">
                     <option value="sum">Suma</option>
                     <option value="subtract">Resta</option>
+                    <option value="multiply">Multiplicación</option>
                 </select>
             </div>
             

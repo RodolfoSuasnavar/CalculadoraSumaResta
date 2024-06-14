@@ -1,42 +1,31 @@
 <?php
 require 'config.php';
 
-// Asegurar que la conexión sea HTTPS
-if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
-    header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
-    exit();
-}
-
 // Validación y saneamiento de entrada
 $num1 = filter_input(INPUT_POST, 'num1', FILTER_VALIDATE_FLOAT);
 $num2 = filter_input(INPUT_POST, 'num2', FILTER_VALIDATE_FLOAT);
 $operation = filter_input(INPUT_POST, 'operation', FILTER_SANITIZE_STRING);
 
-// Depuración: Verificar valores recibidos
-// if (APP_DEBUG) {
-//     echo "num1: " . var_export($num1, true) . "<br>";
-//     echo "num2: " . var_export($num2, true) . "<br>";
-//     echo "operation: " . var_export($operation, true) . "<br>";
-// }
-
-// Validacida adicional
-if ($num1 === false || $num2 === false || !in_array($operation, ['sum', 'subtract'])) {
+// Validación adicional
+if ($num1 === false || $num2 === false || !in_array($operation, ['sum', 'subtract', 'multiply'])) {
     handle_error(E_USER_ERROR, 'Entrada no válida.', __FILE__, __LINE__);
     exit();
 }
 
-// Realiza la operación
+// Realizar la operación
 $result = 0;
 if ($operation == 'sum') {
     $result = $num1 + $num2;
 } elseif ($operation == 'subtract') {
     $result = $num1 - $num2;
+} elseif ($operation == 'multiply') {
+    $result = $num1 * $num2;
 } else {
     handle_error(E_USER_ERROR, 'Operación no válida.', __FILE__, __LINE__);
     exit();
 }
 
-// Encriptación
+// Encriptar el resultado antes de mostrarlo (opcional, dependiendo de los requisitos)
 $encrypted_result = encrypt_data((string)$result, ENCRYPTION_KEY);
 $decrypted_result = decrypt_data($encrypted_result, ENCRYPTION_KEY);
 ?>
