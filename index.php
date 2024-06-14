@@ -26,6 +26,7 @@
                     <option value="sum">Suma</option>
                     <option value="subtract">Resta</option>
                     <option value="multiply">Multiplicación</option>
+                    <option value="divide">División</option>
                 </select>
             </div>
             
